@@ -10,9 +10,9 @@ import (
 	"time"
 
 	"github.com/ogier/pflag"
-	"github.com/papertrail/remote_syslog2/papertrail"
 	"github.com/papertrail/remote_syslog2/syslog"
 	"github.com/papertrail/remote_syslog2/utils"
+	"github.com/vedarthk/remote_syslog2/loggly"
 	"launchpad.net/goyaml"
 )
 
@@ -219,8 +219,8 @@ func (cm *ConfigManager) Hostname() string {
 }
 
 func (cm *ConfigManager) RootCAs() *x509.CertPool {
-	if cm.DestProtocol() == "tls" && cm.DestHost() == "logs.papertrailapp.com" {
-		return papertrail.RootCA()
+	if cm.DestProtocol() == "tls" {
+		return loggly.RootCA()
 	} else {
 		return nil
 	}
